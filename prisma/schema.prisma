@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id  String @id @default(uuid())
+  username  String @unique
+  password  String
+  name  String
+  email String
+  phoneNumber String
+  profilePicture String
+
+  // to define relation with Booking and Review
+  bookings  Booking[]
+  reviews  Review[]
+}
+
+model Booking {
+  id  String @id @default(uuid())
+  // relations by id
+  userId  String 
+  propertyId  String
+
+  checkinDate DateTime
+  checkoutDate  DateTime
+  numberOfGuests  Int
+  totalPrice  Int
+  bookingStatus String
+
+  // reference to the related models
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id String @id @default(uuid())
+  // relations by id
+  userId  String
+  propertyId  String
+
+  rating  Int
+  comment String
+
+  // reference to the related models
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+model Property {
+  id String @id @default(uuid())
+  title String
+  description String
+  location String
+  pricePerNight Float // to ensure 2 decimal places, handle precision in the application layer
+  bedroomCount Int
+  bathRoomCount Int
+  maxGuestCount Int
+  hostId String
+  rating Int
+
+  // to define relation with Booking and Review
+  bookings Booking[]
+  reviews Review[]
+  // reference to the related models
+  host Host @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  amenities PropertiesOnAmenities[]
+}
+
+model Amenity{
+  id String @id @default(uuid())
+  name String
+
+  properties PropertiesOnAmenities[]
+}
+
+model Host {
+  id String @id @default(uuid())
+  username String @unique
+  password String
+  name String
+  email String 
+  phoneNumber String
+  profilePicture String
+  aboutMe String
+  listings Property[]
+}
+
+model PropertiesOnAmenities {
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+  amenity Amenity @relation(fields: [amenityId], references: [id], onDelete: Cascade)
+  amenityId String
+
+  @@id([propertyId, amenityId])
+}
