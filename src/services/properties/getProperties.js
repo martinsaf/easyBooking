@@ -4,19 +4,19 @@ import getAmenities from "../amenities/getAmenities.js";
 const getProperties = async (location, pricePerNight, amenities) => {
   const prisma = new PrismaClient();
 
-  // Converte pricePerNight para um número de ponto flutuante
+  // Converts pricePerNight to a floating-point number
   pricePerNight = parseFloat(pricePerNight);
 
   const filters = {};
   if (location) filters.location = location;
 
-  // Verifica se pricePerNight é um número válido antes de adicionar ao filtro
+  // Checks if pricePerNight is a valid number before adding to the filter
   if (!isNaN(pricePerNight)) filters.pricePerNight = pricePerNight;
 
   if (amenities) {
-    // Verifique se as amenities existem no banco de dados
-    const allAmenities = await getAmenities(); // Busque todas as amenities
-    const amenitiesArray = amenities.split(","); // Supondo que as amenities sejam passadas como uma string separada por vírgulas
+    
+    const allAmenities = await getAmenities(); 
+    const amenitiesArray = amenities.split(",");
     const validAmenities = allAmenities
       .filter((amenity) => amenitiesArray.includes(amenity.id))
       .map((amenity) => amenity.id);
