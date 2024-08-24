@@ -17,7 +17,6 @@ router.get("/", async (req, res, next) => {
     res.status(200).json(amenities);
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while getting list of amenities!");
   }
 });
 
@@ -32,7 +31,6 @@ router.get("/:id", async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while getting amenity by id!");
   }
 });
 
@@ -47,7 +45,6 @@ router.post("/", authMiddleware, async (req, res, next) => {
     res.status(201).json(newAmenity);
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while creating new Amenity");
   }
 });
 
@@ -67,7 +64,6 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while updating amenity by id!");
   }
 });
 
@@ -83,7 +79,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while deleting Amenity by id!");
   }
 });
 
