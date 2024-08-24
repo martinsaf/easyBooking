@@ -21,16 +21,14 @@ Sentry.init({
 });
 console.log("Sentry DSN:", process.env.SENTRY_DSN);
 
-// O request handler deve estar antes de qualquer middleware
 app.use(Sentry.Handlers.requestHandler());
 
-// Rotas da sua aplicação
 app.get("/debug-sentry", function mainHandler(req, res) {
   try {
-    throw new Error("Minha primeira captura de erro com o Sentry!");
+    throw new Error("My first error catch with Sentry!");
   } catch (err) {
     Sentry.captureException(err);
-    res.status(500).send("Erro capturado e enviado para o Sentry!");
+    res.status(500).send("Error caught and sent to Sentry!");
   }
 });
 
@@ -45,7 +43,6 @@ app.use("/login", loginRouter);
 
 app.use(Sentry.Handlers.errorHandler());
 
-// Global middleware
 app.use(log);
 app.use(errorHandler);
 
