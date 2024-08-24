@@ -17,7 +17,6 @@ router.get("/", async (req, res, next) => {
     res.status(200).json(reviews);
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while getting list of reviews!");
   }
 });
 
@@ -32,7 +31,6 @@ router.get("/:id", async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while getting review by id!");
   }
 });
 
@@ -46,7 +44,6 @@ router.post("/", authMiddleware, async (req, res, next) => {
     res.status(201).json(newReview);
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while creating new Review!");
   }
 });
 
@@ -70,7 +67,6 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while updating Review by id!");
   }
 });
 
@@ -86,7 +82,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while deleting Review by id!");
   }
 });
 
