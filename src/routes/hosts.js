@@ -32,7 +32,6 @@ router.get("/:id", async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while getting host by id!");
   }
 });
 
@@ -47,7 +46,6 @@ router.post("/", authMiddleware, async (req, res, next) => {
       profilePicture,
       aboutMe,
     } = req.body;
-    // Verifique se os campos obrigatórios estão presentes
     if (!username || !password || !name || !email) {
       return res.status(400).json({ message: "Missing required fields" });
     }
@@ -70,7 +68,6 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // Verifica se o host existe antes de tentar atualizar
     const host = await getHostById(id);
     if (!host) {
       return res
@@ -101,7 +98,6 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
     res.status(200).json(updatedHost);
   } catch (error) {
     next(error);
-    // Você pode adicionar uma lógica aqui para responder com um 500 se houver um erro inesperado
   }
 });
 
@@ -117,7 +113,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while deleting Host by id!");
   }
 });
 
