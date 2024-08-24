@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"; // Certifique-se de que esta linha está presente
+import { PrismaClient } from "@prisma/client"; 
 import { v4 as uuid } from "uuid";
 
 const createHost = async (
