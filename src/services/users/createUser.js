@@ -13,7 +13,6 @@ const createUser = async (
   const prisma = new PrismaClient();
 
   try {
-    // Verificar se o username já existe
     const existingUser = await prisma.user.findUnique({
       where: {
         username: username,
@@ -24,7 +23,6 @@ const createUser = async (
       throw customErrors.UserAlreadyExistsError();
     }
 
-    // Criar o novo usuário
     const user = await prisma.user.create({
       data: {
         id: uuid(),
@@ -39,7 +37,7 @@ const createUser = async (
 
     return user;
   } catch (error) {
-    throw error; // O erro será capturado pelo manipulador de rotas
+    throw error; 
   }
 };
 
