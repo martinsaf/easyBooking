@@ -25,7 +25,7 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = await getUserById(id); // Função que busca o usuário no banco de dados
+    const user = await getUserById(id); 
     if (!user) {
       return res
         .status(404)
@@ -34,7 +34,6 @@ router.get("/:id", async (req, res, next) => {
     res.status(200).json(user);
   } catch (error) {
     next(error);
-    // res.status(500).json("Something went wrong while getting user by id!");
   }
 });
 
@@ -43,7 +42,6 @@ router.post("/", authMiddleware, async (req, res, next) => {
     const { username, password, name, email, phoneNumber, profilePicture } =
       req.body;
 
-    // Validação de todos os campos obrigatórios
     if (
       !username ||
       !password ||
@@ -110,7 +108,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while deleting User by id!");
   }
 });
 
