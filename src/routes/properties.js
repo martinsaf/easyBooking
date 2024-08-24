@@ -32,7 +32,6 @@ router.get("/:id", async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while getting property by id!");
   }
 });
 
@@ -78,7 +77,6 @@ router.post("/", authMiddleware, async (req, res, next) => {
     res.status(201).json(newProperty);
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while creating new Property!");
   }
 });
 
@@ -86,7 +84,6 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // Verifica se a propriedade existe antes de tentar atualizar
     const property = await getPropertyById(id);
     if (!property) {
       return res
@@ -135,7 +132,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    //res.status(500).json("Something went wrong while deleting Property by id!");
   }
 });
 
